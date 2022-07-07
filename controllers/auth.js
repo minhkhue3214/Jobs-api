@@ -17,14 +17,13 @@ const login = async (req,res) =>{
     }
     const user = await User.findOne({email})
     //compare password
+    // console.log(user)
     if(!user){
         throw new UnauthenticatedError('Invalid Credentials')
     }
 
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({user:{name:user.name},token})
-
-    res.send('login user')
 }
 
 module.exports = {register,login}
